@@ -1,6 +1,6 @@
 # Evaluation Results
 
-This directory contains the detailed evaluation results for **Developer Lightspeed 1.10.2** MCP tool-calling evaluation.
+This directory contains the detailed evaluation results for **RHDH 1.10.2** MCP tool-calling evaluation.
 
 It includes comparative visualizations at the root level, as well as individual subdirectories containing the raw data and detailed metrics for each specific model.
 

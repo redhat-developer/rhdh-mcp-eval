@@ -1,6 +1,6 @@
 # RHDH MCP Evaluation
 
-This branch contains the evaluation resources for **Developer Lightspeed 1.10.2**, covering the MCP tool-calling capabilities of Red Hat Developer Hub / Backstage MCP tools from [`rhdh-plugins/workspaces/mcp-integrations`](https://github.com/redhat-developer/rhdh-plugins/tree/main/workspaces/mcp-integrations).
+This branch contains the evaluation resources for **RHDH 1.10.2**, covering the MCP tool-calling capabilities of Red Hat Developer Hub / Backstage MCP tools from [`rhdh-plugins/workspaces/mcp-integrations`](https://github.com/redhat-developer/rhdh-plugins/tree/main/workspaces/mcp-integrations).
 
 **Canonical repo:** https://github.com/redhat-ai-dev/rhdh-mcp-eval
 
@@ -18,7 +18,7 @@ This branch contains the evaluation resources for **Developer Lightspeed 1.10.2*
 
 ## 🧪 Evaluation Overview
 
-For the Developer Lightspeed 1.10.2 release, we evaluated MCP tool-calling performance across six models against 99 conversations spanning 13 MCP tools in 3 plugin domains (Catalog, TechDocs, Scaffolder).
+For the RHDH 1.10.2 release, we evaluated MCP tool-calling performance across six models against 99 conversations spanning 13 MCP tools in 3 plugin domains (Catalog, TechDocs, Scaffolder).
 
 **Models Evaluated:**
 
