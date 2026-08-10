@@ -1,28 +1,52 @@
 # RHDH MCP Evaluation
 
-Campaign artifacts for evaluating Red Hat Developer Hub / Backstage MCP tools
-from [`rhdh-plugins/workspaces/mcp-integrations`](https://github.com/redhat-developer/rhdh-plugins/tree/main/workspaces/mcp-integrations).
+This branch contains the evaluation resources for **Developer Lightspeed 1.10.2**, covering the MCP tool-calling capabilities of Red Hat Developer Hub / Backstage MCP tools from [`rhdh-plugins/workspaces/mcp-integrations`](https://github.com/redhat-developer/rhdh-plugins/tree/main/workspaces/mcp-integrations).
 
 **Canonical repo:** https://github.com/redhat-ai-dev/rhdh-mcp-eval
 
-Packaging follows
-[developer-lightspeed-evaluation](https://github.com/redhat-ai-dev/developer-lightspeed-evaluation):
-shared gold dataset, per-model traces + scores, comparison graphs.
-Scoring uses [lightspeed-evaluation](https://github.com/lightspeed-core/lightspeed-evaluation)
-(`lightspeed-eval` CLI). This is not the Lightspeed RAG / `lsdataset` pipeline.
+## 📂 Repository Structure
 
-## Layout
-
-| Path | Purpose |
+| Path | Description |
 | --- | --- |
-| `categories.yaml` | Task category definitions |
-| `dataset/eval_data.yaml` | Shared gold (queries, expected tool calls / responses) |
-| `config/system-offline-tool-and-judge.yaml` | Offline tool_eval + judge panel |
-| `evaluation-result/<model>/` | Per-model dataset + scores + graphs |
-| `evaluation-result/*.png` | Cross-model comparison graphs |
-| `scripts/` | Gold builder, multi-provider trace gen, campaign runner |
+| **[📂 dataset](./dataset)** | Gold dataset — 99 conversations with expected tool calls and responses |
+| **[📂 evaluation-result](./evaluation-result)** | Detailed metrics and outcome reports from the model evaluations |
+| **[📂 config](./config)** | Scoring configuration for `lightspeed-eval` |
+| **[📂 scripts](./scripts)** | Gold builder, multi-provider trace gen, campaign runner |
+| **[📄 categories.yaml](categories.yaml)** | Task category definitions for classifying conversations |
 
-## Fixture assumptions
+---
+
+## 🧪 Evaluation Overview
+
+For the Developer Lightspeed 1.10.2 release, we evaluated MCP tool-calling performance across six models against 99 conversations spanning 13 MCP tools in 3 plugin domains (Catalog, TechDocs, Scaffolder).
+
+**Models Evaluated:**
+
+- **Gemini:** `gemini-2.5-pro`, `gemini-2.5-flash-lite`
+- **GPT:** `gpt-5.5`, `gpt-5-mini`, `gpt-4o-mini`
+- **Llama:** `llama-31-8b` (`redhataillama-31-8b-instruct` via OpenShift vLLM/3scale)
+
+**Judge Models:** `gemini-2.5-pro`, `gpt-4o-mini` (aggregation: max)
+
+> 📊 **View Results:** For a deep dive into the performance metrics, please refer to the **[Evaluation Results](./evaluation-result)** directory.
+
+---
+
+## ⚙️ Methodology
+
+The dataset was constructed manually from the MCP tools exposed by `mcp-integrations`, covering:
+
+- **Catalog:** entity queries, filtering by kind/owner/type/tag, entity lookups, model descriptions
+- **TechDocs:** coverage analysis, doc fetching, content retrieval
+- **Scaffolder:** template metadata, task listing, action listing, validation, dry runs
+- **Multi-step:** chained tool calls (e.g. entity lookup → owner components)
+- **Negative:** edge cases where the model should handle missing entities, wrong tool boundaries
+
+**Evaluation Tool:** Scoring was executed using **[lightspeed-evaluation](https://github.com/lightspeed-core/lightspeed-evaluation)**, which consumes the dataset and calculates performance metrics using the configured judge panel.
+
+---
+
+## Fixture Assumptions
 
 Local `mcp-integrations` demo catalog:
 
@@ -44,23 +68,7 @@ Prefer overlay tools (`*-mcp-extras.*`) over upstream duplicates.
 
 Credentials stay in the environment or gitignored local files.
 
-## Full campaign (RHIDP-14578)
-
-Agent models under test (aligned with Developer Lightspeed 1.10):
-
-- `gpt-4o-mini`, `gpt-5-mini`, `gpt-5.5`
-- `gemini-2.5-pro`, `gemini-2.5-flash-lite`
-- `llama-31-8b` (`redhataillama-31-8b-instruct` via OpenShift vLLM/3scale)
-
-Metrics:
-
-| Metric | Role |
-| --- | --- |
-| `custom:tool_eval` | Tool selection / arguments |
-| `custom:answer_correctness` | Response vs expected_response (judge panel) |
-| `ragas:faithfulness` | Response vs MCP tool contexts (judge panel) |
-
-Judge panel: `vertex_ai/gemini-2.5-pro` + `openai/gpt-4o-mini` (aggregation: max).
+## Running the Campaign
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r scripts/requirements.txt
