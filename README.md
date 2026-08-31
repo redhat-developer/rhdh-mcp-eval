@@ -2,7 +2,7 @@
 
 This branch contains the evaluation resources for **RHDH 1.10.2**, covering the MCP tool-calling capabilities of Red Hat Developer Hub / Backstage MCP tools from [`rhdh-plugins/workspaces/mcp-integrations`](https://github.com/redhat-developer/rhdh-plugins/tree/main/workspaces/mcp-integrations).
 
-**Canonical repo:** https://github.com/redhat-ai-dev/rhdh-mcp-eval
+**Canonical repo:** https://github.com/redhat-developer/rhdh-mcp-eval
 
 ## 📂 Repository Structure
 
@@ -104,5 +104,5 @@ uv run lightspeed-eval \
 
 - Tools under test: `rhdh-plugins/workspaces/mcp-integrations`
 - Runner: https://github.com/lightspeed-core/lightspeed-evaluation
-- Pattern reference: https://github.com/redhat-ai-dev/developer-lightspeed-evaluation
+- Pattern reference: https://github.com/redhat-developer/rhdh-intelligent-assistant-evaluation
 - Jira: RHIDP-14578 (evals); RHIDP-14577 (feasibility)
